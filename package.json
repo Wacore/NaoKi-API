@@ -1,0 +1,17 @@
+{
+  "name": "naoki-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hongda Zheng",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.2",
+    "debug": "^4.2.0",
+    "express": "^4.17.1",
+    "joi": "^13.1.0"
+  }
+}
