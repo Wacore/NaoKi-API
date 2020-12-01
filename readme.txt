@@ -1,1 +1,1 @@
-This version mainly focuses on buildign restful routes for the API.
+This version mainly focuses on building restful routes for the API.
