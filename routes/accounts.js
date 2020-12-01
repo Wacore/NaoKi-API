@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Joi = require("joi");
+const { validateAccount } = require("../funcs/accountFuncs");
 
 let accounts = [
   { id: 1, name: "777" },
@@ -67,5 +68,13 @@ router.delete("/:id", (req, res) => {
 
   res.send(result);
 });
+
+// function validateAccount(account) {
+//   const schema = {
+//     name: Joi.string().min(3).required(),
+//   };
+
+//   return Joi.validate(account, schema);
+// }
 
 module.exports = router;
