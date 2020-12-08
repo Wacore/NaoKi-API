@@ -4,6 +4,7 @@ const Joi = require("joi");
 const config = require("config");
 const accounts = require("./routes/accounts");
 const home = require("./routes/home");
+const menu = require("./routes/menus");
 const mongoose = require("mongoose");
 
 mongoose
@@ -38,8 +39,29 @@ async function createCourse() {
 
 // createCourse();
 
+async function getCourse() {
+  // eq = equal
+  // nq = not equal
+  // gt = greater than
+  // gte = greater than or equal to
+  // lt = less than
+  // lte = less than or equal to
+  //  in
+  // nin = not in
+
+  const results = await Course.find({ author: "Mosh", isPulished: true })
+    .limit(10)
+    .sort({ name: 1 })
+    .select({ name: 1, tags: 1 });
+
+  console.log(results);
+}
+
+// getCourse();
+
 app.use(express.json());
 app.use("/api/accounts", accounts);
+app.use("/api/menu", menu);
 app.use("/", home);
 
 app.set("view engine", "pug");
