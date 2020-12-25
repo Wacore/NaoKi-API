@@ -1,3 +1,4 @@
 {
-  "name": "Naoki API"
+  "name": "Naoki API",
+  "jwtPrivateKey": ""
 }

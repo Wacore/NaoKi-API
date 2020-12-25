@@ -1,6 +1,6 @@
+const auth = require("../middleware/auth");
 const express = require("express");
 const router = express();
-// const mongoose = require("mongoose");
 const { Customer } = require("../modules/customer");
 const {
   validateCustomer,
@@ -23,7 +23,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const result = validateCustomer(req.body);
   if (result.error) {
     res.status(400).send(result.error.details[0].message);
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
   res.send(customer);
 });
 
-router.put("/:phoneNum", async (req, res) => {
+router.put("/:phoneNum", auth, async (req, res) => {
   try {
     const { error } = validateCustomer(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -65,7 +65,7 @@ router.put("/:phoneNum", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try {
     const customer = await Customer.deleteOne({ _id: req.params.id });
     if (!customer)
@@ -90,7 +90,7 @@ router.get("/:id/credits", async (req, res) => {
   }
 });
 
-router.put("/:id/credits/:opt", async (req, res) => {
+router.put("/:id/credits/:opt", auth, async (req, res) => {
   try {
     const { error } = validatecustomerCredit(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -145,7 +145,7 @@ router.get("/:id/membership", async (req, res) => {
   }
 });
 
-router.put("/:id/membership/:opt", async (req, res) => {
+router.put("/:id/membership/:opt", auth, async (req, res) => {
   try {
     const customer = await Customer.findById(req.params.id);
     if (!customer)

@@ -1,6 +1,8 @@
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 const express = require("express");
 const router = express();
-const mongoose = require("mongoose");
+const { Menu } = require("../modules/menu");
 const {
   validateMenu,
   getMenu,
@@ -10,48 +12,7 @@ const {
   deleteMenu,
 } = require("../funcs/menuFuncs");
 
-const menuSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 25,
-  },
-  type: {
-    type: String,
-    required: true,
-    enum: [
-      "appetizer",
-      "kids menu",
-      "classic sushi roll",
-      "special roll",
-      "sushi entree",
-      "nigiri & sashimi",
-      "entree",
-      "curry",
-      "ramen",
-      "special ramen",
-      "cold ramen",
-      "ramen dinner",
-      "dessert",
-      "drink",
-    ],
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-  desc: {
-    type: String,
-    minlength: 5,
-    maxlength: 250,
-    required: true,
-  },
-});
-
-const Menu = mongoose.model("Menu", menuSchema);
-
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const menu = await Menu.find().sort("name");
     res.send(menu);
@@ -60,7 +21,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   try {
     const item = await Menu.findById(req.params.id);
     res.send(item);
@@ -72,7 +33,7 @@ router.get("/:id", async (req, res) => {
   // res.send(req.params.id);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [auth, admin], async (req, res) => {
   const result = validateMenu(req.body);
   if (result.error) {
     res.status(400).send(result.error.details[0].message);
@@ -88,7 +49,7 @@ router.post("/", async (req, res) => {
   res.send(menu);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", [auth, admin], async (req, res) => {
   try {
     // check with Mosh's video before testing this request
     const { error } = validateMenu(req.body);
@@ -115,7 +76,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   try {
     const menu = await Menu.deleteOne({ _id: req.params.id });
     if (!menu)
