@@ -16,10 +16,12 @@ if (!config.get("jwtPrivateKey")) {
   console.log("All set");
 }
 
+const db = config.get("db");
+
 mongoose
-  .connect("mongodb://localhost:27017/playground", { useNewUrlParser: true })
-  .then(() => console.log("Connected to MongoDB..."))
-  .catch((err) => console.error("Could not connect to MongoDB..."));
+  .connect(db, { useNewUrlParser: true })
+  .then(() => console.log(`Connected to MongoDB ${db}...`))
+  .catch((err) => console.error(`Could not connect to MongoDB ${db}...`));
 
 app.use(express.json());
 app.use("/api/menu", menu);
@@ -32,4 +34,6 @@ app.use("/", home);
 app.set("view engine", "pug");
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening to port ${port}`));
+const server = app.listen(port, () => console.log(`Listening to port ${port}`));
+
+module.exports = server;

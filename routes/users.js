@@ -9,8 +9,11 @@ const admin = require("../middleware/admin");
 
 router.get("/me", auth, async (req, res) => {
   const user = await User.findById(req.user._id).select("-password");
+  // if (!user) return res.status(404).send("No such user found.");
   res.send(user);
 });
+
+// For testing, delete [auth, admin];
 
 router.post("/", [auth, admin], async (req, res) => {
   const { error } = validateUser(req.body);

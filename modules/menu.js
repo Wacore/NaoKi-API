@@ -10,6 +10,8 @@ const menuSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
+    minlength: 3,
+    maxlength: 50,
     enum: [
       "appetizer",
       "kids menu",
