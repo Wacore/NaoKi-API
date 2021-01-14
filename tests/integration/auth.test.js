@@ -4,15 +4,22 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-let server;
+let server = require("../../app");
 
 describe("/api/auth", () => {
-  beforeEach(() => {
-    server = require("../../app");
+  beforeEach(async () => {
+    await User.remove({}).exec();
   });
   afterEach(async () => {
+    // server.close();
+    await User.remove({}).exec();
+  });
+  beforeAll((done) => {
+    done();
+  });
+  afterAll((done) => {
     server.close();
-    await User.remove({});
+    mongoose.disconnect(done);
   });
 
   describe("POST /", () => {
@@ -29,28 +36,27 @@ describe("/api/auth", () => {
       await User.collection.insertOne(admin);
     });
     it("should return 400 if no data provided", async () => {
-      const res = await request(server).post("/api/auth/").send({});
-      expect(res.status).toBe(400);
+      await request(server).post("/api/auth/").send({}).expect(400);
     });
 
     it("should return 400 if invalid username provided", async () => {
-      const res = await request(server)
+      await request(server)
         .post("/api/auth/")
-        .send({ username: "Admin", password: "Qwer1234" });
-      expect(res.status).toBe(400);
+        .send({ username: "Admin", password: "Qwer1234" })
+        .expect(400);
     });
 
     it("should return 400 if invalid password provided", async () => {
-      const res = await request(server)
+      await request(server)
         .post("/api/auth/")
-        .send({ username: "admin", password: "Qwer12345" });
-      expect(res.status).toBe(400);
+        .send({ username: "admin", password: "Qwer12345" })
+        .expect(400);
     });
     it("should return 200 if it is valid", async () => {
-      const res = await request(server)
+      await request(server)
         .post("/api/auth/")
-        .send({ username: "admin", password: "Qwer1234" });
-      expect(res.status).toBe(200);
+        .send({ username: "admin", password: "Qwer1234" })
+        .expect(200);
     });
   });
 });

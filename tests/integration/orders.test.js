@@ -8,14 +8,18 @@ const { Menu } = require("../../modules/menu");
 const today = moment();
 
 let server;
+server = require("../../app");
 
 describe("/api/order", () => {
-  beforeEach(() => {
-    server = require("../../app");
+  beforeEach(async () => {
+    await Order.remove({});
   });
   afterEach(async () => {
-    server.close();
+    // server.close();
     await Order.remove({});
+  });
+  afterAll(async () => {
+    server.close();
   });
 
   describe("GET /", () => {

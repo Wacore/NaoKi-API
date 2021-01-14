@@ -5,11 +5,10 @@ const mongoose = require("mongoose");
 
 let server;
 let token;
+server = require("../../app");
 
 describe("/api/menu", () => {
   beforeEach(() => {
-    server = require("../../app");
-
     let payload = {
       _id: new mongoose.Types.ObjectId().toHexString(),
       username: "James",
@@ -20,10 +19,12 @@ describe("/api/menu", () => {
     token = user.generateAuthToken();
   });
   afterEach(async () => {
-    server.close();
+    // server.close();
     await Menu.remove({});
   });
-
+  afterAll(async () => {
+    server.close();
+  });
   describe("GET /", () => {
     it("should return 401 code", async () => {
       const res = await request(server).get("/api/menu");

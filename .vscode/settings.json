@@ -1,0 +1,5 @@
+{
+    "jest.debugMode": true,
+    "jest.pathToConfig": "package.json",
+    "debug.node.autoAttach": "off"
+}

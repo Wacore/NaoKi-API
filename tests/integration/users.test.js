@@ -5,16 +5,19 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 let server;
+server = require("../../app");
 
 describe("/api/user", () => {
-  beforeEach(() => {
-    server = require("../../app");
-  });
-  afterEach(async () => {
-    server.close();
+  beforeEach(async () => {
     await User.remove({});
   });
-
+  afterEach(async () => {
+    // server.close();
+    await User.remove({});
+  });
+  afterAll(async () => {
+    server.close();
+  });
   describe("GET /me", () => {
     beforeEach(async () => {
       const salt = await bcrypt.genSalt(10);

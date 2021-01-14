@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose"
+    "test": "NODE_ENV=test jest --verbose --runInBand"
   },
   "author": "Hongda Zheng",
   "license": "ISC",
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node"
+  },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "config": "^3.3.2",
