@@ -92,26 +92,21 @@ router.put(
   })
 );
 
-router.delete(
-  "/:id",
-  [auth, admin],
-  asyncMiddleware(async (req, res) => {
-    try {
-      const menu = await Menu.deleteOne({ _id: req.params.id });
-      if (!menu)
-        return res
-          .status(404)
-          .send("The menu with the given id was not found.");
-      res.send(menu);
-    } catch (error) {
-      console.error(error);
-      res
-        .status(404)
-        .send("The dish with the given id does not exsit, please try again.");
-      return;
-    }
-  })
-);
+router.delete("/:id", [auth, admin], async (req, res) => {
+  try {
+    // const menu = await Menu.deleteOne({ _id: req.params.id });
+    const menu = await Menu.findByIdAndDelete(req.params.id);
+    if (!menu)
+      return res.status(404).send("The menu with the given id was not found.");
+    res.send(menu);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(404)
+      .send("The dish with the given id does not exsit, please try again.");
+    return;
+  }
+});
 
 // createMenu(Menu, {
 //   name: "Calamari Maui",

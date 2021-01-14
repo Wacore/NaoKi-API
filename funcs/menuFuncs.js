@@ -2,7 +2,7 @@ const Joi = require("joi");
 module.exports = {
   validateMenu: function validateMenu(menu) {
     const schema = {
-      name: Joi.string().min(5).max(50).required(),
+      name: Joi.string().min(5).max(25).required(),
       type: Joi.string().min(3).max(50).required(),
       price: Joi.number().required(),
       desc: Joi.string().min(5).max(250).required(),
