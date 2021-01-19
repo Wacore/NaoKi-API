@@ -4,8 +4,12 @@ const asyncMiddleware = require("../middleware/async");
 const { Order } = require("../modules/order");
 const auth = require("../middleware/auth");
 const _ = require("lodash");
-const { validateCustomer } = require("../funcs/customerFuncs");
-const { validateOrderInfo, validateOrderList } = require("../funcs/orderFuncs");
+// const { validateCustomer } = require("../funcs/customerFuncs");
+const {
+  validateOrderInfo,
+  validateOrderList,
+  validateCustomerInfo,
+} = require("../funcs/orderFuncs");
 let moment = require("moment");
 
 // const dateNewYork = moment.tz(Date.now(), "America/America/New_York").format();
@@ -79,7 +83,7 @@ router.post(
     if (order_info.type == "To-go") {
       if (!customer_info)
         return res.status(400).send("No customer info provided.");
-      const { error } = validateCustomer(customer_info);
+      const { error } = validateCustomerInfo(customer_info);
       if (error) return res.status(400).send(error.details[0].message);
       order = new Order({
         order_info: {
@@ -144,13 +148,18 @@ router.put(
   auth,
   asyncMiddleware(async (req, res) => {
     const { order_info, orderlist, customer_info } = req.body;
-    const orderInfoValidated = validateOrderInfo(req.body.order_info);
+    const orderInfoValidated = validateOrderInfo(order_info);
     if (orderInfoValidated.error)
       return res.status(400).send(orderInfoValidated.error.details[0].message);
     const orderlistValidated = validateOrderList(orderlist);
     if (orderlistValidated.error)
       return res.status(400).send(orderlistValidated.error.details[0].message);
 
+    // if (customer_info) {
+    const customerInfoValidated = validateCustomerInfo(customer_info);
+    if (customerInfoValidated.error)
+      return res.status(400).send(orderlistValidated.error.details[0].message);
+    // }
     const order = await Order.updateOne(
       { _id: req.params.id },
       {
@@ -168,7 +177,7 @@ router.delete(
   "/:id",
   auth,
   asyncMiddleware(async (req, res) => {
-    const order = await Order.deleteOne({ _id: req.params.id });
+    const order = await Order.findByIdAndDelete(req.params.id);
     if (!order)
       return res
         .status(404)

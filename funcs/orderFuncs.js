@@ -23,9 +23,30 @@ function validateOrderList(list) {
   return Joi.validate(list, listSchema);
 }
 
+function validateDone(order) {
+  const schema = {
+    done: Joi.boolean().required(),
+  };
+  return Joi.validate(order, schema);
+}
+
 function handleInvalidInputs(error, res) {
   return res.status(400).send(error.details[0].message);
 }
 
+function validateCustomerInfo(customer) {
+  const schema = {
+    name: Joi.string().min(3).max(50).required(),
+    phoneNum: Joi.string()
+      .length(10)
+      .regex(/^[0-9]+$/)
+      .required(),
+  };
+
+  return Joi.validate(customer, schema);
+}
+
 exports.validateOrderInfo = validateOrderInfo;
 exports.validateOrderList = validateOrderList;
+exports.validateCustomerInfo = validateCustomerInfo;
+exports.validateDone = validateDone;
