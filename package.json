@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test jest --verbose --runInBand"
+    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "12.18.3"
   },
   "author": "Hongda Zheng",
   "license": "ISC",
