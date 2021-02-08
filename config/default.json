@@ -1,3 +1,6 @@
 {
-  "name": "Naoki API"
+  "name": "Naoki API",
+  "jwtPrivateKey": "",
+  "db": "mongodb://localhost:27017/playground",
+  "testing-token": ""
 }

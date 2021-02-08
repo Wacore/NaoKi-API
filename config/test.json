@@ -1,0 +1,5 @@
+{
+  "name": "Naoki API",
+  "jwtPrivateKey": "1234",
+  "db": "mongodb://localhost:27017/Naoki_api_tests"
+}
