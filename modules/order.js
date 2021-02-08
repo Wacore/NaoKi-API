@@ -8,6 +8,11 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   order_info: {
+    orderNum: {
+      type: Number,
+      default: 1,
+      max: 999,
+    },
     type: {
       type: String,
       default: "Dine-in",

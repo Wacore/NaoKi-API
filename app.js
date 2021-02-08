@@ -5,6 +5,8 @@ require("./startup/logging")();
 require("./startup/routes")(app);
 require("./startup/db")();
 require("./startup/config")();
+require("./startup/prod")(app);
+
 if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined!");
   process.exit(1);
@@ -27,4 +29,5 @@ server.on("close", () => {
   connections.forEach((curr) => curr.end());
   setTimeout(() => connections.forEach((curr) => curr.destroy()), 5000);
 });
+
 module.exports = server;

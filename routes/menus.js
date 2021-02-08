@@ -17,7 +17,6 @@ router.get(
   "/",
   auth,
   asyncMiddleware(async (req, res) => {
-    // throw new Error("Could not get data");
     const menu = await Menu.find().sort("name");
     res.send(menu);
   })

@@ -9,7 +9,7 @@ const admin = require("../middleware/admin");
 
 router.get("/me", auth, async (req, res) => {
   const user = await User.findById(req.user._id).select("-password");
-  // if (!user) return res.status(404).send("No such user found.");
+  if (!user) return res.status(404).send("No such user found.");
   res.send(user);
 });
 
@@ -25,7 +25,6 @@ router.post("/", [auth, admin], async (req, res) => {
   user = new User(_.pick(req.body, ["username", "password", "isAdmin"]));
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
-  // console.log(salt);
   await user.save();
 
   res.send(_.pick(user, ["_id", "username"]));
