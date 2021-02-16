@@ -1,3 +1,4 @@
 {
-  "jwtPrivateKey": "NaokiJC_jwtPrivateKey"
+  "jwtPrivateKey": "NaokiJC_jwtPrivateKey",
+  "db": "NaokiJC_db"
 }
