@@ -33,7 +33,7 @@ server.on("close", () => {
 
 async function createCustomer() {
   const customer = new Customer({
-    name: "Pino",
+    name: "James",
     phoneNum: "3213214321",
   });
 

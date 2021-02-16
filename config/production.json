@@ -1,6 +1,9 @@
 {
-  "name": "Naoki API - Production",
-  "mail": {
-    "host": "prod-mail-server"
-  }
+  "name": "Naoki API",
+  "jwtPrivateKey": "",
+  "db": "mongodb+srv://<username>:<password>@naokijc.udhez.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "user": "",
+  "password": "",
+  "dbname": "",
+  "testing-token": ""
 }
