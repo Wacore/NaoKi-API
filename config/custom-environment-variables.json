@@ -1,4 +1,6 @@
 {
   "jwtPrivateKey": "NaokiJC_jwtPrivateKey",
-  "db": "NaokiJC_db"
+  "user": "NaokiJC_user",
+  "password": "NaokiJC_pwd",
+  "dbname": "NaokiJC_dbname"
 }

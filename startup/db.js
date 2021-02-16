@@ -3,7 +3,15 @@ const logger = require("../logger/logger");
 const config = require("config");
 
 module.exports = function () {
-  const db = config.get("db");
+  let user = config.get("user");
+  let pwd = config.get("password");
+  let dbname = config.get("dbname");
+
+  let db = config
+    .get("db")
+    .replace("<username>", user)
+    .replace("<password>", pwd)
+    .replace("<dbname>", dbname);
 
   mongoose
     .connect(db, {
