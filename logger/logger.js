@@ -8,11 +8,11 @@ const logger = createLogger({
       level: "error",
       format: format.combine(format.timestamp(), format.json()),
     }),
-    new transports.MongoDB({
-      level: "error",
-      db: "mongodb://localhost:27017/playground",
-      format: format.combine(format.timestamp(), format.json()),
-    }),
+    // new transports.MongoDB({
+    //   level: "error",
+    //   db: "mongodb://localhost:27017/playground",
+    //   format: format.combine(format.timestamp(), format.json()),
+    // }),
     new transports.File({
       filename: "infofile.log",
       level: "info",
