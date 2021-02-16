@@ -7,11 +7,16 @@ module.exports = function () {
   let pwd = config.get("password");
   let dbname = config.get("dbname");
 
-  let db = config
-    .get("db")
-    .replace("<username>", user)
-    .replace("<password>", pwd)
-    .replace("<dbname>", dbname);
+  // let db = config
+  //   .get("db")
+  //   .replace("<username>", user)
+  //   .replace("<password>", pwd)
+  //   .replace("<dbname>", dbname);
+
+  let db =
+    "mongodb+srv://Wacore:Mario@gsap27@naokijc.udhez.mongodb.net/NaokiJC?retryWrites=true&w=majority";
+
+  console.log(db);
 
   mongoose
     .connect(db, {

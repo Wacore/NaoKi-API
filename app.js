@@ -31,17 +31,17 @@ server.on("close", () => {
   setTimeout(() => connections.forEach((curr) => curr.destroy()), 5000);
 });
 
-async function createCustomer() {
-  const customer = new Customer({
-    name: "James",
-    phoneNum: "3213214321",
-  });
+// async function createCustomer() {
+//   const customer = new Customer({
+//     name: "James",
+//     phoneNum: "3213214321",
+//   });
 
-  const res = await customer.save();
-  console.log(res);
-}
+//   const res = await customer.save();
+//   console.log(res);
+// }
 
-createCustomer();
+// createCustomer();
 
 module.exports = server;
 
