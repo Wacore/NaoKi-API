@@ -55,10 +55,13 @@ describe("/api/user", () => {
     it("should return 200 if valid token provided", async () => {
       let payload = {
         _id: new mongoose.Types.ObjectId().toHexString(),
-        username: "Tim",
+        username: "admin",
+        password: "SuperMario88",
         isAdmin: false,
       };
       let user = new User(payload);
+
+      user.save();
       let token = user.generateAuthToken();
 
       let res = await request(server)
@@ -94,11 +97,6 @@ describe("/api/user", () => {
       const user = new User(payload);
 
       token = user.generateAuthToken();
-    });
-    it("should return 401 if no token provided", async () => {
-      token = "";
-      let res = await exec();
-      expect(res.status).toBe(401);
     });
 
     it("should return 400 if username is less than 5 character", async () => {
