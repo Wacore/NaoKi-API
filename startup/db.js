@@ -7,6 +7,8 @@ module.exports = function () {
   let pwd = config.get("password");
   let dbname = config.get("dbname");
 
+  // testing
+
   let db = config
     .get("db")
     .replace("<username>", user)
