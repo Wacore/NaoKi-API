@@ -16,7 +16,9 @@ if (!config.get("jwtPrivateKey")) {
 }
 
 const port = process.env.PORT || 3000;
-const server = app.listen(port, () => console.log(`Listening to port ${port}`));
+const server = app.listen(port, "0.0.0.0", () =>
+  console.log(`Listening to port ${port}`)
+);
 
 // async function createCustomer() {
 //   const customer = new Customer({
@@ -29,6 +31,13 @@ const server = app.listen(port, () => console.log(`Listening to port ${port}`));
 // }
 
 // createCustomer();
+
+async function getCustomer() {
+  const res = await Customer.find();
+  console.log(res);
+}
+
+getCustomer();
 
 module.exports = server;
 
