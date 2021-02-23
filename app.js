@@ -20,6 +20,8 @@ const server = app.listen(port, "0.0.0.0", () =>
   console.log(`Listening to port ${port}`)
 );
 
+// testing
+
 module.exports = server;
 
 // mongodb://localhost:27017/playground
