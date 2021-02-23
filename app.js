@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 const config = require("config");
+const { Customer } = require("./modules/customer");
 require("./startup/logging")();
 require("./startup/routes")(app);
 require("./startup/db")();
 require("./startup/config")();
 require("./startup/prod")(app);
-const data = require("./data");
 
 if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined!");
