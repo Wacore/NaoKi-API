@@ -4,8 +4,8 @@ const menuSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 5,
-    maxlength: 25,
+    minlength: 3,
+    maxlength: 35,
   },
   type: {
     type: String,
