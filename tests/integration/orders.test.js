@@ -45,7 +45,7 @@ describe("/api/order", () => {
         created_at: today._d,
         is_done: false,
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 2, is_sent: false },
+          { menu: "5fe6547792cab415ef52a16b", amount: 2, isSent: false },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
@@ -90,7 +90,7 @@ describe("/api/order", () => {
         created_at: today._d,
         is_done: true,
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 2, is_sent: false },
+          { menu: "5fe6547792cab415ef52a16b", amount: 2, isSent: false },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
@@ -138,7 +138,7 @@ describe("/api/order", () => {
         created_at: today._d,
         is_done: false,
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 3, is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: 3, isSent: true },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
@@ -192,7 +192,7 @@ describe("/api/order", () => {
           pickupTime: 45,
         },
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 3, is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: 3, isSent: true },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
@@ -266,7 +266,7 @@ describe("/api/order", () => {
         created_at: today._d,
         is_done: false,
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 3, is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: 3, isSent: true },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
@@ -287,7 +287,7 @@ describe("/api/order", () => {
     it("should return 400 if amount is not a number", async () => {
       toEdit = {
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: "a", is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: "a", isSent: true },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
@@ -303,12 +303,12 @@ describe("/api/order", () => {
       toEdit = {
         is_done: true,
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 3, is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: 3, isSent: true },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
             desc: "More sauce",
-            is_sent: true,
+            isSent: true,
           },
         ],
       };
@@ -346,7 +346,7 @@ describe("/api/order", () => {
         created_at: today._d,
         is_done: false,
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 3, is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: 3, isSent: true },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
@@ -382,7 +382,7 @@ describe("/api/order", () => {
     it("should return 400 if amount is not a number", async () => {
       toEdit = {
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: "a", is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: "a", isSent: true },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
@@ -413,7 +413,7 @@ describe("/api/order", () => {
           pickupTime: 60,
         },
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 3, is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: 3, isSent: true },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,
@@ -439,7 +439,7 @@ describe("/api/order", () => {
           pickupTime: 60,
         },
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 3, is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: 3, isSent: true },
         ],
         customer_info: {
           name: "James",
@@ -460,7 +460,7 @@ describe("/api/order", () => {
           pickupTime: 60,
         },
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 3, is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: 3, isSent: true },
         ],
         customer_info: {
           name: "Tim",
@@ -500,7 +500,7 @@ describe("/api/order", () => {
         created_at: today._d,
         is_done: false,
         orderlist: [
-          { menu: "5fe6547792cab415ef52a16b", amount: 3, is_sent: true },
+          { menu: "5fe6547792cab415ef52a16b", amount: 3, isSent: true },
           {
             menu: "5fcfba027ad86915f5a47dd9",
             amount: 1,

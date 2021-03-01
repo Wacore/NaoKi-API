@@ -31,7 +31,7 @@ describe("order.validateOrderList", () => {
       {
         menu: "5fe6547792cab415ef52a16b",
         amount: 2,
-        is_sent: false,
+        isSent: false,
       },
       {
         menu: "5fcfba027ad86915f5a47dd9",
@@ -44,7 +44,7 @@ describe("order.validateOrderList", () => {
     expect(value[0]).toMatchObject({
       menu: "5fe6547792cab415ef52a16b",
       amount: 2,
-      is_sent: false,
+      isSent: false,
     });
     expect(value[1]).toMatchObject({
       menu: "5fcfba027ad86915f5a47dd9",

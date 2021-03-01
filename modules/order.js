@@ -53,8 +53,9 @@ const orderSchema = new mongoose.Schema({
       desc: {
         type: String,
         maxlength: 255,
+        minlength: 0,
       },
-      is_sent: {
+      isSent: {
         type: Boolean,
         default: false,
       },
