@@ -87,6 +87,7 @@ router.post(
       if (error) return res.status(400).send(error.details[0].message);
       order = new Order({
         order_info: {
+          orderNum: order_info.orderNum,
           type: order_info.type,
           pickupTime: order_info.pickupTime,
         },
@@ -98,6 +99,7 @@ router.post(
     } else {
       order = new Order({
         order_info: {
+          orderNum: order_info.orderNum,
           type: order_info.type,
           peoNum: order_info.peoNum,
           tableNum: order_info.tableNum,
