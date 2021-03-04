@@ -24,6 +24,17 @@ function validateOrderList(list) {
   return Joi.validate(list, listSchema);
 }
 
+function validateOrder(item) {
+  const schema = {
+    menu: Joi.objectId().required(),
+    amount: Joi.number().min(1).max(50).required(),
+    desc: Joi.string().max(255).allow(null, ""),
+    isSent: Joi.boolean(),
+  };
+
+  return Joi.validate(item, schema);
+}
+
 function validateDone(order) {
   const schema = {
     done: Joi.boolean().required(),
@@ -51,3 +62,4 @@ exports.validateOrderInfo = validateOrderInfo;
 exports.validateOrderList = validateOrderList;
 exports.validateCustomerInfo = validateCustomerInfo;
 exports.validateDone = validateDone;
+exports.validateOrder = validateOrder;

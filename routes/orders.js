@@ -9,6 +9,7 @@ const {
   validateOrderInfo,
   validateOrderList,
   validateCustomerInfo,
+  validateOrder,
 } = require("../funcs/orderFuncs");
 let moment = require("moment");
 
@@ -140,6 +141,28 @@ router.put(
         }
       );
     }
+
+    res.send(order);
+  })
+);
+
+router.put(
+  "/:id/add",
+  auth,
+  asyncMiddleware(async (req, res) => {
+    const orderlistValidated = validateOrder(req.body);
+    if (orderlistValidated.error)
+      return res.status(400).send(orderlistValidated.error.details[0].message);
+
+    const order = await Order.findById(req.params.id);
+    if (!order)
+      return res.status(404).send("The order with the given id was not found.");
+
+    let newOrderList = [...order.orderlist, req.body];
+
+    order.set({ orderlist: newOrderList });
+
+    order.save();
 
     res.send(order);
   })
