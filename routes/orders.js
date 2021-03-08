@@ -10,6 +10,7 @@ const {
   validateOrderList,
   validateCustomerInfo,
   validateOrder,
+  validateServerId,
 } = require("../funcs/orderFuncs");
 let moment = require("moment");
 
@@ -72,13 +73,16 @@ router.post(
   "/",
   auth,
   asyncMiddleware(async (req, res) => {
-    const { order_info, orderlist, customer_info } = req.body;
+    const { order_info, orderlist, customer_info, serverId } = req.body;
     const orderInfoValidated = validateOrderInfo(req.body.order_info);
     if (orderInfoValidated.error)
       return res.status(400).send(orderInfoValidated.error.details[0].message);
     const orderlistValidated = validateOrderList(orderlist);
     if (orderlistValidated.error)
       return res.status(400).send(orderlistValidated.error.details[0].message);
+    const serverIdValidated = validateServerId({ id: serverId });
+    if (serverIdValidated.error)
+      return res.status(400).send(serverIdValidated.error.details[0].message);
 
     let order;
     if (order_info.type == "To-go") {
@@ -109,6 +113,7 @@ router.post(
     }
 
     order.orderlist = orderlist;
+    order.serverId = serverId;
 
     order = await order.save();
     res.send(order);

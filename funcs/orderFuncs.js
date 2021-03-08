@@ -42,6 +42,13 @@ function validateDone(order) {
   return Joi.validate(order, schema);
 }
 
+function validateServerId(id) {
+  const schema = {
+    id: Joi.objectId().required(),
+  };
+  return Joi.validate(id, schema);
+}
+
 function handleInvalidInputs(error, res) {
   return res.status(400).send(error.details[0].message);
 }
@@ -63,3 +70,4 @@ exports.validateOrderList = validateOrderList;
 exports.validateCustomerInfo = validateCustomerInfo;
 exports.validateDone = validateDone;
 exports.validateOrder = validateOrder;
+exports.validateServerId = validateServerId;

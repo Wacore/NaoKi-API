@@ -7,6 +7,11 @@ const orderSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  serverId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   order_info: {
     orderNum: {
       type: Number,
