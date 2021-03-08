@@ -2,9 +2,11 @@ const express = require("express");
 const router = express();
 const asyncMiddleware = require("../middleware/async");
 const { Order } = require("../modules/order");
+const { User } = require("../modules/user");
 const auth = require("../middleware/auth");
 const _ = require("lodash");
-// const { validateCustomer } = require("../funcs/customerFuncs");
+const { Expo } = require("expo-server-sdk");
+
 const {
   validateOrderInfo,
   validateOrderList,
@@ -13,6 +15,7 @@ const {
   validateServerId,
 } = require("../funcs/orderFuncs");
 let moment = require("moment");
+const sendPushNotification = require("../utilities/pushNotifications");
 
 // const dateNewYork = moment.tz(Date.now(), "America/America/New_York").format();
 const today = moment().startOf("day");
@@ -117,6 +120,31 @@ router.post(
 
     order = await order.save();
     res.send(order);
+  })
+);
+
+router.post(
+  "/:id/messaging",
+  auth,
+  asyncMiddleware(async (req, res) => {
+    const { serverId } = req.body;
+    const serverIdValidated = validateServerId({ id: serverId });
+    if (serverIdValidated.error)
+      return res.status(400).send(serverIdValidated.error.details[0].message);
+
+    const targetServer = await User.findById(serverId);
+    if (!targetServer)
+      return res
+        .status(404)
+        .send("The server with the given Id was not found.");
+
+    const { expoPushToken } = targetServer;
+    let message = "Dish is ready";
+
+    if (Expo.isExpoPushToken(expoPushToken))
+      await sendPushNotification(expoPushToken, message);
+
+    res.status(201).send();
   })
 );
 
