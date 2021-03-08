@@ -16,12 +16,23 @@ const usersSchema = new mongoose.Schema({
     minlength: 8,
     maxlength: 1024,
   },
+  expoPushToken: {
+    type: String,
+    minlength: 30,
+    maxlength: 55,
+    default: null,
+  },
   isAdmin: Boolean,
 });
 
 usersSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
-    { _id: this._id, username: this.username, isAdmin: this.isAdmin },
+    {
+      _id: this._id,
+      username: this.username,
+      expoPushToken: this.expoPushToken,
+      isAdmin: this.isAdmin,
+    },
     config.get("jwtPrivateKey")
   );
   return token;

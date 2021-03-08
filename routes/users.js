@@ -2,7 +2,7 @@ const _ = require("lodash");
 const express = require("express");
 const router = express();
 const { User } = require("../modules/user");
-const { validateUser } = require("../funcs/userFuncs");
+const { validateUser, validateExpoPushToken } = require("../funcs/userFuncs");
 const bcrypt = require("bcrypt");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
@@ -28,6 +28,22 @@ router.post("/", async (req, res) => {
   await user.save();
 
   res.send(_.pick(user, ["_id", "username"]));
+});
+
+router.put("/", async (req, res) => {
+  const { error } = validateExpoPushToken(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let user = await User.findById(req.body.id);
+  if (!user) return res.status(404).send("No such user found.");
+
+  user.set({
+    expoPushToken: req.body.token,
+  });
+
+  user.save();
+
+  res.send(user);
 });
 
 module.exports = router;
